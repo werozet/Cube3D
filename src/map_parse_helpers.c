@@ -6,7 +6,7 @@
 /*   By: wzielins <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 21:39:29 by pmamala           #+#    #+#             */
-/*   Updated: 2025/09/08 13:23:27 by wzielins         ###   ########.fr       */
+/*   Updated: 2025/09/08 14:14:33 by wzielins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,11 @@ void	assign_and_pad(t_cfg *cfg, t_rows *rs)
 	{
 		cfg->map.grid[y] = malloc(cfg->map.w + 1);
 		if (!cfg->map.grid[y])
+		{
+			cfg->map.h = y;  // Set height to number of successfully allocated rows
+			free_map(&cfg->map);
 			error_exit("alloc map row");
+		}
 		fill_row(cfg->map.grid[y], rs->rows[y], cfg->map.w);
 		y++;
 	}
