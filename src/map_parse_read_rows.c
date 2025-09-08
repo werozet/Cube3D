@@ -6,7 +6,7 @@
 /*   By: wzielins <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 21:34:44 by pmamala           #+#    #+#             */
-/*   Updated: 2025/09/04 16:29:45 by wzielins         ###   ########.fr       */
+/*   Updated: 2025/09/08 13:23:30 by wzielins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,11 @@ static char	*gnl2(int fd)
 
 static int	count_width(const char *s)
 {
-	int	i;
 	int	w;
 
-	i = 0;
 	w = 0;
-	while (s[i] && s[i] != '\n')
-	{
-		i++;
+	while (s[w] && s[w] != '\n')
 		w++;
-	}
 	return (w);
 }
 

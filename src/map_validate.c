@@ -6,7 +6,7 @@
 /*   By: wzielins <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 17:38:59 by pmamala           #+#    #+#             */
-/*   Updated: 2025/09/04 16:29:50 by wzielins         ###   ########.fr       */
+/*   Updated: 2025/09/08 13:23:39 by wzielins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,22 @@ int	validate_map(t_map *m)
 		y++;
 	}
 	return (0);
+}
+
+void	fill_row(char *dst, const char *src, int w)
+{
+	int	x;
+	int	len;
+
+	len = (int)ft_strlen(src);
+	x = 0;
+	while (x < w)
+	{
+		if (x < len)
+			dst[x] = src[x];
+		else
+			dst[x] = '1';
+		x++;
+	}
+	dst[w] = '\0';
 }

@@ -6,7 +6,7 @@
 /*   By: wzielins <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 17:16:41 by pmamala           #+#    #+#             */
-/*   Updated: 2025/09/04 16:29:41 by wzielins         ###   ########.fr       */
+/*   Updated: 2025/09/08 13:22:33 by wzielins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@ static void	init_app_or_die(t_app *app, const char *path)
 {
 	ft_bzero(app, sizeof(*app));
 	if (parse_config(path, &app->cfg, &app->pl) != 0)
+	{
+		free_cfg(&app->cfg);
 		error_exit("Error\nInvalid configuration");
+	}
 	init_player_plane(&app->pl, 'N');
 	setup_app_defaults(app);
 }

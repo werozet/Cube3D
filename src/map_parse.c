@@ -6,7 +6,7 @@
 /*   By: wzielins <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 17:38:56 by pmamala           #+#    #+#             */
-/*   Updated: 2025/09/04 16:29:48 by wzielins         ###   ########.fr       */
+/*   Updated: 2025/09/08 13:23:36 by wzielins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,16 @@ int	parse_map_and_player(int fd, char *first_map_line, t_cfg *cfg, t_player *pl)
 	t_rows	rs;
 
 	if (read_all_rows(fd, first_map_line, &rs) != 0)
+	{
+		free_rows(&rs);
 		return (-1);
+	}
 	assign_and_pad(cfg, &rs);
+	free_rows(&rs);
 	if (scan_and_validate(cfg, pl) != 0)
+	{
+		free_map(&cfg->map);
 		return (-1);
+	}
 	return (0);
 }

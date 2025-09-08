@@ -6,7 +6,7 @@
 /*   By: wzielins <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 17:31:47 by pmamala           #+#    #+#             */
-/*   Updated: 2025/09/04 16:28:50 by wzielins         ###   ########.fr       */
+/*   Updated: 2025/09/08 13:25:35 by wzielins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,7 @@
 # include <math.h>
 # include <sys/time.h>
 # include "libft.h"
-
-/* mlx */
-void	*mlx_init(void);
-void	*mlx_new_window(void *mlx_ptr, int size_x, int size_y, char *title);
-int		mlx_loop(void *mlx_ptr);
-int		mlx_hook(void *win_ptr, int x_event, int x_mask,
-			int (*funct)(), void *param);
-int		mlx_loop_hook(void *mlx_ptr, int (*funct_ptr)(), void *param);
-void	*mlx_xpm_file_to_image(void *mlx_ptr, char *filename,
-			int *width, int *height);
-int		mlx_destroy_image(void *mlx_ptr, void *img_ptr);
-int		mlx_destroy_window(void *mlx_ptr, void *win_ptr);
-void	*mlx_new_image(void *mlx_ptr, int width, int height);
-char	*mlx_get_data_addr(void *img_ptr, int *bits_per_pixel,
-			int *size_line, int *endian);
-int		mlx_put_image_to_window(void *mlx_ptr, void *win_ptr,
-			void *img_ptr, int x, int y);
+# include "mlx.h"
 
 /* Window size */
 # define WIN_W 1024
@@ -242,5 +226,9 @@ int		select_tex(int side, double rdx, double rdy);
 void	free_cfg(t_cfg *cfg);
 void	free_map(t_map *m);
 void	error_exit(const char *msg);
+void	destroy_mlx_and_assets(t_app *app);
+void	free_rows(t_rows *r);
+void	fill_row(char *dst, const char *src, int w);
+void	destroy_textures(t_app *app);
 
 #endif

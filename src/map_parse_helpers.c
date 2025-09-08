@@ -6,7 +6,7 @@
 /*   By: wzielins <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 21:39:29 by pmamala           #+#    #+#             */
-/*   Updated: 2025/09/04 16:29:43 by wzielins         ###   ########.fr       */
+/*   Updated: 2025/09/08 13:23:27 by wzielins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,21 @@ static void	pad_and_sanitize(t_map *m, int maxw)
 
 void	assign_and_pad(t_cfg *cfg, t_rows *rs)
 {
-	cfg->map.grid = rs->rows;
+	int	y;
+
 	cfg->map.h = rs->h;
+	cfg->map.w = rs->maxw;
+	cfg->map.grid = malloc(sizeof(char *) * cfg->map.h);
+	if (!cfg->map.grid)
+		error_exit("alloc map grid");
+	y = 0;
+	while (y < cfg->map.h)
+	{
+		cfg->map.grid[y] = malloc(cfg->map.w + 1);
+		if (!cfg->map.grid[y])
+			error_exit("alloc map row");
+		fill_row(cfg->map.grid[y], rs->rows[y], cfg->map.w);
+		y++;
+	}
 	pad_and_sanitize(&cfg->map, rs->maxw);
 }

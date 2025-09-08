@@ -6,7 +6,7 @@
 /*   By: wzielins <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 17:38:52 by pmamala           #+#    #+#             */
-/*   Updated: 2025/09/04 16:29:37 by wzielins         ###   ########.fr       */
+/*   Updated: 2025/09/08 13:23:21 by wzielins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ int	on_key_release(int key, t_app *a)
 
 int	on_destroy(t_app *a)
 {
-	(void)a;
+	destroy_mlx_and_assets(a);
+	free_cfg(&a->cfg);
 	exit(0);
 	return (0);
 }
