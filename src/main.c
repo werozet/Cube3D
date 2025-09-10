@@ -6,7 +6,7 @@
 /*   By: wzielins <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 17:16:41 by pmamala           #+#    #+#             */
-/*   Updated: 2025/09/08 13:22:33 by wzielins         ###   ########.fr       */
+/*   Updated: 2025/09/10 14:37:53 by wzielins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	main(int argc, char **argv)
 {
 	t_app	app;
 
-	validate_args_or_die(argc);
+	validate_args_or_die(argc, argv);
 	init_app_or_die(&app, argv[1]);
 	init_mlx_or_die(&app);
 	load_assets_or_die(&app);

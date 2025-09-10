@@ -6,16 +6,35 @@
 /*   By: wzielins <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 21:25:29 by pmamala           #+#    #+#             */
-/*   Updated: 2025/09/08 13:23:24 by wzielins         ###   ########.fr       */
+/*   Updated: 2025/09/10 14:37:53 by wzielins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	validate_args_or_die(int argc)
+static int	has_cub_extension(const char *filename)
+{
+	int	len;
+	int	i;
+
+	if (!filename)
+		return (0);
+	len = ft_strlen(filename);
+	if (len < 4)
+		return (0);
+	i = len - 4;
+	if (filename[i] == '.' && filename[i + 1] == 'c' 
+		&& filename[i + 2] == 'u' && filename[i + 3] == 'b')
+		return (1);
+	return (0);
+}
+
+void	validate_args_or_die(int argc, char **argv)
 {
 	if (argc != 2)
 		error_exit("Error\nUsage: ./cub3D <map.cub>");
+	if (!has_cub_extension(argv[1]))
+		error_exit("Error\nMap file must have .cub extension");
 }
 
 static void	set_dir_plane(t_player *pl, t_vec2 dir, t_vec2 plane)
