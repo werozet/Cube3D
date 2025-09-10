@@ -6,7 +6,7 @@
 /*   By: wzielins <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 17:31:47 by pmamala           #+#    #+#             */
-/*   Updated: 2025/09/08 13:25:35 by wzielins         ###   ########.fr       */
+/*   Updated: 2025/09/10 14:37:53 by wzielins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,7 +206,7 @@ int		is_wall(t_app *a, double nx, double ny);
 /* init helpers */
 void	init_player_plane(t_player *pl, char orient);
 void	setup_app_defaults(t_app *app);
-void	validate_args_or_die(int argc);
+void	validate_args_or_die(int argc, char **argv);
 
 /* map helpers */
 int		read_all_rows(int fd, char *first, t_rows *rs);
