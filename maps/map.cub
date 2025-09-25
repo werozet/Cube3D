@@ -1,4 +1,4 @@
-NO ./textures/brick_real_red.xpm
+NO ./textures/brick_real_red.xpm 
 SO ./textures/brick_real_dark.xpm
 WE ./textures/brick_real_aged.xpm
 EA ./textures/brick_real_mixed.xpm

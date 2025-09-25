@@ -12,13 +12,10 @@
 
 #include "cub3d.h"
 
-static int	is_valid_body_char(char c)
+static int	print_multiple_spawn_error(void)
 {
-	if (c == '0' || c == '1' || c == ' ')
-		return (1);
-	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
-		return (1);
-	return (0);
+	ft_putendl_fd((char *)"Error\nMultiple player spawns", 2);
+	return (-1);
 }
 
 static int	process_cell(t_cfg *cfg, t_player *pl, int *px_set, t_point p)
@@ -28,20 +25,18 @@ static int	process_cell(t_cfg *cfg, t_player *pl, int *px_set, t_point p)
 	c = cfg->map.grid[p.y][p.x];
 	if (!is_valid_body_char(c))
 	{
-		ft_putendl_fd("Error\nInvalid map char", 2);
+		ft_putendl_fd((char *)"Error\nInvalid map char", 2);
 		return (-1);
 	}
 	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 	{
-		*px_set = *px_set + 1;
-		if (*px_set > 1)
-		{
-			ft_putendl_fd("Error\nMultiple player spawns", 2);
-			return (-1);
-		}
+		if (*px_set)
+			return (print_multiple_spawn_error());
 		pl->x = p.x + 0.5;
 		pl->y = p.y + 0.5;
+		set_player_dir(pl, c);
 		cfg->map.grid[p.y][p.x] = '0';
+		*px_set = 1;
 	}
 	return (0);
 }
@@ -57,7 +52,7 @@ static int	scan_map_for_player(t_cfg *cfg, t_player *pl, int *px_set)
 		x = 0;
 		while (x < cfg->map.w)
 		{
-			if (process_cell(cfg, pl, px_set, (t_point){x, y}) != 0)
+			if (process_cell(cfg, pl, px_set, (t_point){x, y}))
 				return (-1);
 			x++;
 		}
@@ -75,7 +70,7 @@ static int	scan_and_validate(t_cfg *cfg, t_player *pl)
 		return (-1);
 	if (!px_set)
 	{
-		ft_putendl_fd("Error\nNo player spawn", 2);
+		ft_putendl_fd((char *)"Error\nNo player spawn", 2);
 		return (-1);
 	}
 	if (validate_map(&cfg->map) != 0)

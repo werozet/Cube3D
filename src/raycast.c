@@ -17,12 +17,12 @@ int	select_tex(int side, double rdx, double rdy)
 	if (side == 0)
 	{
 		if (rdx > 0.0)
-			return (2);
-		return (3);
+			return (3);
+		return (2);
 	}
 	if (rdy > 0.0)
-		return (0);
-	return (1);
+		return (1);
+	return (0);
 }
 
 static void	run_dda(t_app *a, t_rc *r)

@@ -6,7 +6,7 @@
 /*   By: wzielins <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 21:39:29 by pmamala           #+#    #+#             */
-/*   Updated: 2025/09/08 14:14:33 by wzielins         ###   ########.fr       */
+/*   Updated: 2025/09/11 13:53:46 by wzielins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,26 +33,15 @@ static void	fill_spaces_tail(char *padded, int *i, int maxw)
 static void	pad_row(char **prow, int maxw)
 {
 	char	*row;
-	char	*padded;
 	int		i;
-	int		len;
 
+	if (!prow || !*prow || maxw < 0)
+		return ;
 	row = *prow;
-	len = (int)ft_strlen(row);
-	if (len >= maxw)
-	{
-		row[maxw] = 0;
-		return ;
-	}
-	padded = (char *)malloc(maxw + 1);
-	if (!padded)
-		return ;
 	i = 0;
-	copy_prefix(padded, row, &i);
-	fill_spaces_tail(padded, &i, maxw);
-	padded[i] = 0;
-	free(row);
-	*prow = padded;
+	copy_prefix(row, row, &i);
+	fill_spaces_tail(row, &i, maxw);
+	row[i] = '\0';
 }
 
 static void	pad_and_sanitize(t_map *m, int maxw)
@@ -81,10 +70,10 @@ void	assign_and_pad(t_cfg *cfg, t_rows *rs)
 	y = 0;
 	while (y < cfg->map.h)
 	{
-		cfg->map.grid[y] = malloc(cfg->map.w + 1);
+		cfg->map.grid[y] = malloc((cfg->map.w + 1) * sizeof(char));
 		if (!cfg->map.grid[y])
 		{
-			cfg->map.h = y;  // Set height to number of successfully allocated rows
+			cfg->map.h = y;
 			free_map(&cfg->map);
 			error_exit("alloc map row");
 		}

@@ -20,7 +20,6 @@ static void	init_app_or_die(t_app *app, const char *path)
 		free_cfg(&app->cfg);
 		error_exit("Error\nInvalid configuration");
 	}
-	init_player_plane(&app->pl, 'N');
 	setup_app_defaults(app);
 }
 

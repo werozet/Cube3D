@@ -12,35 +12,59 @@
 
 #include "cub3d.h"
 
-int	rgb_to_int(int r, int g, int b)
+static char	*skip_ws(char *s)
 {
-	return ((r & 0xFF) << 16 | (g & 0xFF) << 8 | (b & 0xFF));
+	while (*s == ' ' || *s == '\t')
+		s++;
+	return (s);
+}
+
+static int	parse_u8_comp(char **ps, int *out)
+{
+	long	val;
+	char	*s;
+
+	s = skip_ws(*ps);
+	if (!ft_isdigit(*s))
+		return (-1);
+	val = 0;
+	while (ft_isdigit(*s))
+	{
+		val = val * 10 + (*s - '0');
+		if (val > 255)
+			return (-1);
+		s++;
+	}
+	*out = (int)val;
+	*ps = s;
+	return (0);
+}
+
+static int	expect_comma(char **ps)
+{
+	char	*s;
+
+	s = skip_ws(*ps);
+	if (*s != ',')
+		return (-1);
+	*ps = s + 1;
+	return (0);
 }
 
 static int	parse_rgb_triplet(char **p, int *r, int *g, int *b)
 {
-	char	*tmp;
-	int		i;
+	char	*s;
 
-	*r = ft_atoi(*p);
-	tmp = ft_strchr(*p, ',');
-	if (!tmp)
+	if (parse_u8_comp(p, r) != 0)
 		return (-1);
-	*g = ft_atoi(tmp + 1);
-	tmp = ft_strchr(tmp + 1, ',');
-	if (!tmp)
+	if (expect_comma(p) != 0 || parse_u8_comp(p, g) != 0)
 		return (-1);
-	*b = ft_atoi(tmp + 1);
-	i = 0;
-	while ((*p)[i] && (*p)[i] != '\n')
-	{
-		if ((*p)[i] != ' ' && (*p)[i] != '\t' &&
-			(*p)[i] != ',' && !ft_isdigit((*p)[i]))
-			return (-1);
-		i++;
-	}
-	if (*r < 0 || *r > 255 || *g < 0 || *g > 255 || *b < 0 || *b > 255)
+	if (expect_comma(p) != 0 || parse_u8_comp(p, b) != 0)
 		return (-1);
+	s = skip_ws(*p);
+	if (*s != '\0' && *s != '\n')
+		return (-1);
+	*p = s;
 	return (0);
 }
 
