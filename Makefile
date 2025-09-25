@@ -20,6 +20,7 @@ LIBFT_INC	:= -I $(LIBFTDIR)/includes
 SRC			:= \
 	cleanup.c \
 	config_identifiers.c \
+	config_identifiers_helper.c \
 	config_parse_helpers.c \
 	config_parse.c \
 	image.c \
@@ -30,6 +31,7 @@ SRC			:= \
 	map_parse_helpers.c \
 	map_parse_read_rows.c \
 	map_parse_row.c \
+	map_parse_utils.c \
 	map_parse.c \
 	map_validate.c \
 	raycast_helpers.c \

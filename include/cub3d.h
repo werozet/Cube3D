@@ -40,12 +40,6 @@
 # define EV_KEYRELEASE 3
 # define EV_DESTROY 17
 
-typedef struct s_vec2
-{
-	double	x;
-	double	y;
-}			t_vec2;
-
 typedef struct s_point
 {
 	int		x;
@@ -58,6 +52,14 @@ typedef struct s_rows
 	int		h;
 	int		maxw;
 }			t_rows;
+
+typedef struct s_dirplane
+{
+	double	dirx;
+	double	diry;
+	double	planex;
+	double	planey;
+}	t_dirplane;
 
 typedef struct s_rc
 {
@@ -176,6 +178,8 @@ int		parse_ident_line(char *line, t_cfg *cfg);
 int		parse_map_and_player(int fd, char *first_map_line,
 			t_cfg *cfg, t_player *pl);
 int		validate_map(t_map *map);
+int		dup_tex_key(void);
+int		dup_color_key(void);
 char	*gnl(int fd);
 
 /* utils - color */
@@ -210,8 +214,11 @@ void	validate_args_or_die(int argc, char **argv);
 
 /* map helpers */
 int		read_all_rows(int fd, char *first, t_rows *rs);
+int		is_valid_body_char(char c);
 void	assign_and_pad(t_cfg *cfg, t_rows *rs);
 void	sanitize_row(char *row, int maxw);
+void	set_player_dir(t_player *pl, char c);
+void	set_player_values(t_player *pl, t_dirplane dp);
 
 /* raycast helpers */
 void	init_ray(t_app *a, int x, t_rc *r);
@@ -230,5 +237,7 @@ void	destroy_mlx_and_assets(t_app *app);
 void	free_rows(t_rows *r);
 void	fill_row(char *dst, const char *src, int w);
 void	destroy_textures(t_app *app);
+char	*skip_spaces(char *s);
+size_t	get_trimmed_len(const char *s);
 
 #endif
